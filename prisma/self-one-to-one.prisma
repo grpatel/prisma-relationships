@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./self-one-to-one"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./self-one-to-one/self-one-to-one.db"
+}
+
+model User {
+  id            Int     @id @default(autoincrement())
+  name          String?
+  bestFriend1Id Int?    @unique
+  bestFriend1   User?   @relation("BestFriends", fields: [bestFriend1Id], references: [id])
+  bestFriend2   User?   @relation("BestFriends")
+}

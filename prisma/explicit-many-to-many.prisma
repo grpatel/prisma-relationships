@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./explicit-many-to-many"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./explicit-many-to-many/explicit-many-to-many.db"
+}
+
+model Post {
+  id    Int           @id @default(autoincrement())
+  title String
+  tags  TagsOnPosts[]
+}
+
+model Tag {
+  id    Int           @id @default(autoincrement())
+  name  String
+  posts TagsOnPosts[]
+}
+
+model TagsOnPosts {
+  post       Post   @relation(fields: [postId], references: [id])
+  postId     Int
+  tag        Tag    @relation(fields: [tagId], references: [id])
+  tagId      Int
+  assignedBy String
+
+  @@id([postId, tagId])
+}

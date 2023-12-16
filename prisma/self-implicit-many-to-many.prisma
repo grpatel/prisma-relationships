@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "./self-implicit-many-to-many"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./self-implicit-many-to-many/self-implicit-many-to-many.db"
+}
+model User {
+  id         Int     @id @default(autoincrement())
+  name       String?
+  followedBy User[]  @relation("UserFollows")
+  following  User[]  @relation("UserFollows")
+}
