@@ -3,12 +3,13 @@ const prisma = new PrismaClient()
 
 async function main() {
     const teacherWithStudents = await prisma.user.findMany({
+        where: { teacherId: null },
         include: {
-        students: true
+          students: true 
         }
-    });
+      })
     
-    console.log('Teacher with Students:', teacherWithStudents);
+    console.log('Teacher with Students:', JSON.stringify(teacherWithStudents, null, 2))
 }
 main()
   .then(async () => {
