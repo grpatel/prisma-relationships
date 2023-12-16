@@ -4,7 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "1-1": "ts-node src/one-to-one.ts",
+    "1-m": "ts-node src/one-to-many.ts",
+    "i-m-m": "ts-node src/implicit-many-to-many.ts",
+    "e-m-m": "ts-node src/explicit-many-to-many.ts",
+    "s-1-1": "ts-node src/self-one-to-one.ts",
+    "s-1-m": "ts-node src/self-one-to-many.ts",
+    "si-m-m": "ts-node src/self-implicit-many-to-many.ts",
+    "se-m-m": "ts-node src/self-explicit-many-to-many.ts"
+    
   },
   "keywords": [],
   "author": "",
