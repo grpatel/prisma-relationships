@@ -1045,7 +1045,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: number
     name: string | null
-    teacherId: number
+    teacherId: number | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1071,7 +1071,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     teacherId?: boolean
-    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    teacher?: boolean | User$teacherArgs<ExtArgs>
     students?: boolean | User$studentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1083,7 +1083,7 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    teacher?: boolean | User$teacherArgs<ExtArgs>
     students?: boolean | User$studentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1092,13 +1092,13 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      teacher: Prisma.$UserPayload<ExtArgs>
+      teacher: Prisma.$UserPayload<ExtArgs> | null
       students: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string | null
-      teacherId: number
+      teacherId: number | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1448,7 +1448,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    teacher<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    teacher<T extends User$teacherArgs<ExtArgs> = {}>(args?: Subset<T, User$teacherArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     students<T extends User$studentsArgs<ExtArgs> = {}>(args?: Subset<T, User$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -1683,7 +1683,7 @@ export namespace Prisma {
     /**
      * The data needed to create a User.
      */
-    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+    data?: XOR<UserCreateInput, UserUncheckedCreateInput>
   }
 
 
@@ -1778,6 +1778,22 @@ export namespace Prisma {
     /**
      * Filter which Users to delete
      */
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * User.teacher
+   */
+  export type User$teacherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
   }
 
@@ -1890,15 +1906,15 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
     name?: StringNullableFilter<"User"> | string | null
-    teacherId?: IntFilter<"User"> | number
-    teacher?: XOR<UserRelationFilter, UserWhereInput>
+    teacherId?: IntNullableFilter<"User"> | number | null
+    teacher?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     students?: UserListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    teacherId?: SortOrder
+    teacherId?: SortOrderInput | SortOrder
     teacher?: UserOrderByWithRelationInput
     students?: UserOrderByRelationAggregateInput
   }
@@ -1909,15 +1925,15 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
-    teacherId?: IntFilter<"User"> | number
-    teacher?: XOR<UserRelationFilter, UserWhereInput>
+    teacherId?: IntNullableFilter<"User"> | number | null
+    teacher?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     students?: UserListRelationFilter
   }, "id">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    teacherId?: SortOrder
+    teacherId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -1931,32 +1947,32 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
-    teacherId?: IntWithAggregatesFilter<"User"> | number
+    teacherId?: IntNullableWithAggregatesFilter<"User"> | number | null
   }
 
   export type UserCreateInput = {
     name?: string | null
-    teacher: UserCreateNestedOneWithoutStudentsInput
+    teacher?: UserCreateNestedOneWithoutStudentsInput
     students?: UserCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
     name?: string | null
-    teacherId: number
+    teacherId?: number | null
     students?: UserUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUpdateInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    teacher?: UserUpdateOneRequiredWithoutStudentsNestedInput
+    teacher?: UserUpdateOneWithoutStudentsNestedInput
     students?: UserUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    teacherId?: IntFieldUpdateOperationsInput | number
+    teacherId?: NullableIntFieldUpdateOperationsInput | number | null
     students?: UserUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
@@ -1967,7 +1983,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    teacherId?: IntFieldUpdateOperationsInput | number
+    teacherId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -1995,9 +2011,20 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type UserNullableRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type UserListRelationFilter = {
@@ -2076,6 +2103,22 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedOneWithoutStudentsInput = {
     create?: XOR<UserCreateWithoutStudentsInput, UserUncheckedCreateWithoutStudentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutStudentsInput
@@ -2098,10 +2141,12 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type UserUpdateOneRequiredWithoutStudentsNestedInput = {
+  export type UserUpdateOneWithoutStudentsNestedInput = {
     create?: XOR<UserCreateWithoutStudentsInput, UserUncheckedCreateWithoutStudentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutStudentsInput
     upsert?: UserUpsertWithoutStudentsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStudentsInput, UserUpdateWithoutStudentsInput>, UserUncheckedUpdateWithoutStudentsInput>
   }
@@ -2121,6 +2166,14 @@ export namespace Prisma {
 
   export type IntFieldUpdateOperationsInput = {
     set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
@@ -2163,6 +2216,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -2209,7 +2273,7 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
     notIn?: number[] | null
@@ -2217,18 +2281,34 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type UserCreateWithoutStudentsInput = {
     name?: string | null
-    teacher: UserCreateNestedOneWithoutStudentsInput
+    teacher?: UserCreateNestedOneWithoutStudentsInput
   }
 
   export type UserUncheckedCreateWithoutStudentsInput = {
     id?: number
     name?: string | null
-    teacherId: number
+    teacherId?: number | null
   }
 
   export type UserCreateOrConnectWithoutStudentsInput = {
@@ -2265,13 +2345,13 @@ export namespace Prisma {
 
   export type UserUpdateWithoutStudentsInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    teacher?: UserUpdateOneRequiredWithoutStudentsNestedInput
+    teacher?: UserUpdateOneWithoutStudentsNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    teacherId?: IntFieldUpdateOperationsInput | number
+    teacherId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserUpsertWithWhereUniqueWithoutTeacherInput = {
@@ -2296,7 +2376,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
     id?: IntFilter<"User"> | number
     name?: StringNullableFilter<"User"> | string | null
-    teacherId?: IntFilter<"User"> | number
+    teacherId?: IntNullableFilter<"User"> | number | null
   }
 
   export type UserUpdateWithoutTeacherInput = {

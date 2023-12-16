@@ -11,7 +11,7 @@ datasource db {
 model User {
   id        Int     @id @default(autoincrement())
   name      String?
-  teacherId Int
-  teacher   User    @relation("TeacherStudents", fields: [teacherId], references: [id])
+  teacherId Int?
+  teacher   User?    @relation("TeacherStudents", fields: [teacherId], references: [id])
   students  User[]  @relation("TeacherStudents")
 }
