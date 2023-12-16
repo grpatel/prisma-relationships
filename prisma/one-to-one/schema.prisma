@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./one-to-one"
+}
+
+datasource db {
+  provider = "sqlite"
+	url      = "file:./one-to-one/one-to-one.db"
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  profile Profile?
+}
+
+model Profile {
+  name      String
+  gender    String
+  age       String
+  user      User   @relation(fields: [userEmail], references: [email])
+  userEmail String @unique
+}
