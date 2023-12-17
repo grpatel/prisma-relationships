@@ -4,8 +4,8 @@ const prisma = new PrismaClient()
 async function main() {
     const userWithFollowersAndFollowing = await prisma.user.findMany({
         include: {
-        followedBy: true,
-        following: true
+            followedBy: true,
+            following: true
         }
     })
     
