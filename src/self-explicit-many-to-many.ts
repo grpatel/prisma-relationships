@@ -9,7 +9,7 @@ async function main() {
         }
     })
     
-    console.log('User with Followers and Following:', userWithFollowersAndFollowing)
+    console.log('User with Followers and Following:', JSON.stringify(userWithFollowersAndFollowing, null, 2))
 }
 main()
   .then(async () => {
