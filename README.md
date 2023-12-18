@@ -51,23 +51,23 @@ The executable queries are located within the src folder. To run these, use the 
 A user can have one profile and a profile can belong to one user.
 
 Query to retrieve profile:
-```
-    const userWithProfile = await prisma.user.findMany({
-        include: {
-            profile: true
-        }
-    })
+```typescript
+const userWithProfile = await prisma.user.findMany({
+    include: {
+        profile: true
+    }
+})
 ```
 ### One-to-many relationship
 A post can be authored by one user and a user can have many posts.
 
 Query to retrieve posts:
-```
-    const userWithPosts = await prisma.user.findMany({
-        include: {
-            posts: true
-        }
-    })
+```typescript
+const userWithPosts = await prisma.user.findMany({
+    include: {
+        posts: true
+    }
+})
 
 ```
 
@@ -76,12 +76,12 @@ Posts can have multiple tags, and tags can be associated with multiple posts.
 Implicit means that Prisma defines the relation table. 
 
 Query to retrieve post with tags:
-```
-    const postWithTags = await prisma.post.findMany({
-        include: {
-            tags: true
-        }
-    })
+```typescript
+const postWithTags = await prisma.post.findMany({
+    include: {
+        tags: true
+    }
+})
 
 ```
 > Only one query is shown to keep it simple. The file also includes a query to retrieve tag with posts
@@ -91,12 +91,12 @@ Posts can have multiple tags, and tags can be associated with multiple posts.
 Explicit requires manually creating the relation table.
 
 Query to retrieve post with tags:
-```
-    const postWithTags = await prisma.post.findMany({
-        include: {
-            tags: true
-        }
-    })
+```typescript
+const postWithTags = await prisma.post.findMany({
+    include: {
+        tags: true
+    }
+})
 
 ```
 
@@ -104,12 +104,12 @@ Query to retrieve post with tags:
 For self relations, each record in the table is related to another record within the same table. In this case, a user can have zero or one best friend.
 
 Query to retrieve best friend:
-```
-    const userWithBestFriend = await prisma.user.findMany({
-        include: {
-          bestFriend1: true
-        }
-    })
+```typescript
+const userWithBestFriend = await prisma.user.findMany({
+    include: {
+        bestFriend1: true
+    }
+})
 
 ```
 
@@ -117,26 +117,26 @@ Query to retrieve best friend:
 A user can act as a teacher for multiple students
 
 Query to retrieve teacher's students:
-```
-    const teacherWithStudents = await prisma.user.findMany({
-        where: { teacherId: null },
-        include: {
-          students: true 
-        }
-    })
+```typescript
+const teacherWithStudents = await prisma.user.findMany({
+    where: { teacherId: null },
+    include: {
+        students: true 
+    }
+})
 
 ```
 ### Self implicit many-to-many relationship
 Users can follow users and be followed by other users.
 
 Query to retrieve user's followers and following:
-```
-    const userWithFollowersAndFollowing = await prisma.user.findMany({
-        include: {
-            followedBy: true,
-            following: true
-        }
-    })
+```typescript
+const userWithFollowersAndFollowing = await prisma.user.findMany({
+    include: {
+        followedBy: true,
+        following: true
+    }
+})
 
 ```
 
@@ -144,12 +144,12 @@ Query to retrieve user's followers and following:
 Users can explicitly follow users and be followed by other users. The relation table is manually created.
 
 Query to retrieve user's followers and following:
-```
-    const userWithFollowersAndFollowing = await prisma.user.findMany({
-        include: {
-            followedBy: true,
-            following: true
-        }
-    })
+```typescript
+const userWithFollowersAndFollowing = await prisma.user.findMany({
+    include: {
+        followedBy: true,
+        following: true
+    }
+})
 
 ```
